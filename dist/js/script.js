@@ -15,10 +15,14 @@ function displayProducts(products) {
         const productCard = document.createElement("div");
         productCard.classList.add("product");
         productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
+        <a class="product__link" href="https://www.google.com/">
+            <div class="product__items">
+                <h3 class="product__title">${product.name}</h3>
+                <p class="product__description">${product.description}</p>
+            </div>
+        </a>
         `;
+        //<img class="product__img" src="${product.image}" alt="${product.name}">
         productsContainer.appendChild(productCard);
     });
 }
@@ -70,5 +74,14 @@ searchInput.addEventListener("input", function() {
         
         const autoCompleteResults = filterProducts(searchTerm);
         displayAutoCompleteResults(autoCompleteResults);
+    }
+});
+
+searchInput.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        searchInput.blur();
+        searchInput.value = "";
+        productsContainer.innerHTML = "";
+        autoCompleteMenu.innerHTML = "";
     }
 });

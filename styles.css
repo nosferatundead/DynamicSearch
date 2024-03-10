@@ -34,6 +34,10 @@ a {
     height: 75px;
 }
 
+.product:hover {
+    cursor: pointer;
+}
+
 /* .product img {
     max-width: 100%;
 } */
@@ -48,6 +52,12 @@ a {
 .product p {
     font-size: 14px;
     padding: 6px;
+}
+
+.product__title, .product__description {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .autoCompleteMenu {

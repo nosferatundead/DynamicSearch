@@ -1,16 +1,12 @@
-const products = [
-    { name: "Product 1", description: "Description for Product 1", image: "product1.jpg" },
-    { name: "Product 2", description: "Description for Product 2", image: "product2.jpg" },
-    { name: "Product 3", description: "Description for Product 3", image: "product3.jpg" },
-];
-
-const productsContainer = document.getElementById("productsContainer");
+const productsContainer = document.getElementById("productContainer");
 const searchInput = document.getElementById("searchInput");
 const autoCompleteMenu = document.getElementById("autoCompleteMenu");
 
 function displayProducts(products) {
     productsContainer.innerHTML = "";
     
+    const visibleProducts = products.slice(0, 3);
+
     products.forEach(product => {
         const productCard = document.createElement("div");
         productCard.classList.add("product");
@@ -21,7 +17,7 @@ function displayProducts(products) {
         </div>
         `;
         
-        productCard.addEventListener('click', function() {
+        productCard.addEventListener("click", function() {
             createModal(product);
         });
 
@@ -69,7 +65,6 @@ searchInput.addEventListener("keydown", function(event) {
         searchInput.blur();
         searchInput.value = "";
         productsContainer.innerHTML = "";
-        autoCompleteMenu.innerHTML = "";
     }
 });
 
@@ -88,8 +83,8 @@ searchInput.addEventListener("input", function() {
 });
 
 function createModal(product) {
-    const modal = document.createElement('div');
-    modal.classList.add('modal');
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
     modal.id = "modal";
     modal.innerHTML = `
     <div class="modal__bg"></div>
@@ -106,17 +101,23 @@ function createModal(product) {
     
     document.body.appendChild(modal);
 
-    const closeButton = modal.querySelector('.modal__close-btn');
-    closeButton.addEventListener('click', function() {
+    const closeButton = modal.querySelector(".modal__close-btn");
+    closeButton.addEventListener("click", function() {
         modal.remove();
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            modal.remove();
+        }
     });
 }
 
 function attachModalListeners() {
-    const productCards = document.querySelectorAll('.product');
+    const productCards = document.querySelectorAll(".product");
 
     productCards.forEach((productCard, index) => {
-        productCard.addEventListener('click', function() {
+        productCard.addEventListener("click", function() {
             createModal(products[index]);
         });
     });

@@ -15,14 +15,16 @@ function displayProducts(products) {
         const productCard = document.createElement("div");
         productCard.classList.add("product");
         productCard.innerHTML = `
-        <a class="product__link" href="https://www.google.com/">
-            <div class="product__items">
-                <h3 class="product__title">${product.name}</h3>
-                <p class="product__description">${product.description}</p>
-            </div>
-        </a>
+        <div class="product__content">
+            <h3 class="product__title">${product.name}</h3>
+            <p class="product__description">${product.description}</p>
+        </div>
         `;
-        //<img class="product__img" src="${product.image}" alt="${product.name}">
+        
+        productCard.addEventListener('click', function() {
+            createModal(product);
+        });
+
         productsContainer.appendChild(productCard);
     });
 }
@@ -47,7 +49,7 @@ function displayAutoCompleteResults(results) {
             displayProducts([result]);
             autoCompleteMenu.innerHTML = "";
         });
-        
+
         autoCompleteMenu.appendChild(autoCompleteItem);
     });
 }
@@ -58,6 +60,14 @@ searchInput.addEventListener("click", function() {
 
 document.addEventListener("click", function(event) {
     if (event.target !== searchInput && event.target !== autoCompleteMenu) {
+        productsContainer.innerHTML = "";
+    }
+});
+
+searchInput.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        searchInput.blur();
+        searchInput.value = "";
         productsContainer.innerHTML = "";
         autoCompleteMenu.innerHTML = "";
     }
@@ -77,11 +87,37 @@ searchInput.addEventListener("input", function() {
     }
 });
 
-searchInput.addEventListener("keydown", function(event) {
-    if (event.key === "Escape") {
-        searchInput.blur();
-        searchInput.value = "";
-        productsContainer.innerHTML = "";
-        autoCompleteMenu.innerHTML = "";
-    }
-});
+function createModal(product) {
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.id = "modal";
+    modal.innerHTML = `
+    <div class="modal__bg"></div>
+    <div class="modal__w">
+        <div class="modal__containter">
+                <div class="modal__content">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <button class="modal__close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+    `;
+    
+    document.body.appendChild(modal);
+
+    const closeButton = modal.querySelector('.modal__close-btn');
+    closeButton.addEventListener('click', function() {
+        modal.remove();
+    });
+}
+
+function attachModalListeners() {
+    const productCards = document.querySelectorAll('.product');
+
+    productCards.forEach((productCard, index) => {
+        productCard.addEventListener('click', function() {
+            createModal(products[index]);
+        });
+    });
+}

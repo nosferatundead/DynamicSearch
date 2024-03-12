@@ -4,8 +4,6 @@ const autoCompleteMenu = document.getElementById("autoCompleteMenu");
 
 function displayProducts(products) {
     productsContainer.innerHTML = "";
-    
-    const visibleProducts = products.slice(0, 3);
 
     products.forEach(product => {
         const productCard = document.createElement("div");
@@ -24,6 +22,15 @@ function displayProducts(products) {
         productsContainer.appendChild(productCard);
     });
 }
+
+function displayAllProducts() {
+    const allProducts = [...products, ...coffee, ...food];
+    displayProducts(allProducts);
+}
+
+searchInput.addEventListener("click", function() {
+    displayAllProducts();
+});
 
 function filterProducts(searchTerm) {
     return products.filter(product => 
@@ -49,10 +56,6 @@ function displayAutoCompleteResults(results) {
         autoCompleteMenu.appendChild(autoCompleteItem);
     });
 }
-
-searchInput.addEventListener("click", function() {
-    displayProducts(products);
-});
 
 document.addEventListener("click", function(event) {
     if (event.target !== searchInput && event.target !== autoCompleteMenu) {
@@ -91,6 +94,7 @@ function createModal(product) {
     <div class="modal__w">
         <div class="modal__containter">
                 <div class="modal__content">
+                <img src="${product.image}" alt="${product.name}">
                 <h3>${product.name}</h3>
                 <p>${product.description}</p>
                 <button class="modal__close-btn">Close</button>

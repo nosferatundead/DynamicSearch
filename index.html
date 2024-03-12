@@ -12,19 +12,43 @@
 
 <body>
     <header>
+
+        <h1 class="main__title title">Dynamic Search</h1>
+
         <div class="search">
             <input type="text" class="search__input" id="searchInput" placeholder="Search products...">
         </div>
 
-        <div class="search__product-results">
-            <div class="product__container" id="productContainer">
-                <!-- Products will be dynamically added here -->
+        <div class="search__product">
+            <div class="search__product-results">
+                <div class="product__container" id="productContainer">
+                    <!-- Products will be dynamically added here -->
+                </div>
             </div>
         </div>
 
+        <nav class="nav">
+            <ul class="nav__list">
+                <li class="nav__list-item"><a href="#products">Products</a></li>
+                <li class="nav__list-item"><a href="#coffee">Coffee</a></li>
+                <li class="nav__list-item"><a href="#food">Food</a></li>
+            </ul>
+        </nav>
     </header>
 
+    <div class="main">
+        <div class="main__container">
+            <h2 id="products">Products</h2>
+            <div id="mainProducts" class="main__products"></div>
+            <h2 id="coffee">Coffee</h2>
+            <div id="secondProducts" class="main__products"></div>
+            <h2 id="food">Food</h2>
+            <div id="thirdProducts" class="main__products"></div>
+        </div>
+    </div>
+
     <script src="data.js"></script>
+    <script src="index.js"></script>
     <script src="script.js"></script>
 </body>
 
